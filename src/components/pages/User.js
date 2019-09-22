@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import RepoCards from '../cards/RepoCards';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -7,11 +8,14 @@ class User extends Component {
   static propTypes = {
     loading: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
-    getUserByLogin: PropTypes.func.isRequired
+    repos: PropTypes.array.isRequired,
+    getUserByLogin: PropTypes.func.isRequired,
+    getUserReposByLogin: PropTypes.func.isRequired
   };
 
   componentDidMount() {
     this.props.getUserByLogin(this.props.match.params.login);
+    this.props.getUserReposByLogin(this.props.match.params.login);
   }
 
   render() {
@@ -31,7 +35,7 @@ class User extends Component {
       hireable
     } = this.props.user;
 
-    const { loading } = this.props;
+    const { loading, repos } = this.props;
 
     if (loading) {
       return <Spinner />;
@@ -98,6 +102,7 @@ class User extends Component {
               </div>
             </div>
           </div>
+          <RepoCards repos={repos} />
           <div className='text-center'>
             <div className='badge badge-primary mx-2'>
               Followers: {followers}
