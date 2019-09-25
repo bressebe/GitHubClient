@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
 import UserCard from './UserCard';
 import Spinner from '../layout/Spinner';
-import PropTypes from 'prop-types';
+import GitHubContext from '../../context/github/GitHubContext';
 
-const UserCards = ({ users, loading }) => {
+const UserCards = () => {
+  const { users, loading } = useContext(GitHubContext);
   if (loading) {
     return <Spinner />;
   } else {
@@ -15,11 +17,6 @@ const UserCards = ({ users, loading }) => {
       </div>
     );
   }
-};
-
-UserCards.propTypes = {
-  users: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
 };
 
 const userCardsStyle = {
