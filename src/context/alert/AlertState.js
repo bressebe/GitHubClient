@@ -7,6 +7,7 @@ const AlertState = props => {
   const initialState = null;
   const [state, dispatch] = useReducer(AlertReducer, initialState);
 
+  // displays an alert under the nav bar for 5 seconds
   const showAlert = (msg, type) => {
     dispatch({ type: SHOW_ALERT, payload: { msg, type } });
     setTimeout(() => dispatch({ type: REMOVE_ALERT }), 5000);
